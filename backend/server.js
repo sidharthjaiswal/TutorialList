@@ -8,6 +8,11 @@ db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
 
+require("./app/routes/turorial.routes")(app);
+
+// set port, listen for requests
+const PORT = 4000;
+app.listen(4000);
 
 const app = express();
 
