@@ -53,14 +53,43 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
+    const id = req.params.id;
 
+    Tutorial.findByPk(id)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Tutorial with id=" + id + err
+
+            });
+        });
 };
-
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
+    const id = req.params.id;
 
+    Tutorial.update(req.body, {
+            where: { id: id }
+        })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Tutorial was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Tutorial with id=" + id
+            });
+        });
 };
-
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
 
