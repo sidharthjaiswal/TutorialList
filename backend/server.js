@@ -8,12 +8,6 @@ db.sequelize.sync({ force: true }).then(() => {
     console.log("Drop and re-sync db.");
 });
 
-require("./routes/tutorial.routes")(app);
-
-// set port, listen for requests
-const PORT = 4000;
-app.listen(4000);
-
 const app = express();
 
 var corsOptions = {
@@ -34,6 +28,7 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
+require("./routes/tutorial.routes")(app);
 const PORT = process.env.PORT || 8082;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
